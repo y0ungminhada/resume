@@ -24,7 +24,8 @@ body {
     Arial,
     sans-serif;
   letter-spacing: -0.3px;
-  color: #222222;
+  color: #111111;
+  background: #ffffff;
   padding-bottom: 2rem;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -58,6 +59,7 @@ p {
   margin: 0 0 1rem 0;
   font-size: 1.1rem;
   line-height: 1.7;
+  color: #111111;
 }
 
 a {
@@ -114,7 +116,7 @@ h5 {
   margin: 0 0 0.5rem 0;
   font-size: 1.3rem;
   line-height: 1.4;
-  color: #333333;
+  color: #111111;
 }
 
 ul {
@@ -197,7 +199,7 @@ ul > li::before {
 .role {
   display: block;
   margin-bottom: 0.2rem;
-  color: #555555;
+  color: #111111;
 }
 
 .project {
@@ -215,5 +217,5 @@ ul > li::before {
 .time {
   display: block;
   margin-bottom: 1.5rem;
-  color: #666666;
+  color: #111111;
 }
