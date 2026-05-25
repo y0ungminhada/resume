@@ -5,6 +5,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+export function withBasePath(src) {
+  if (!src) return src;
+  if (/^(https?:|data:|mailto:|tel:)/.test(src)) return src;
+  if (src.startsWith(BASE_PATH)) return src;
+  return `${BASE_PATH}${src.startsWith("/") ? src : `/${src}`}`;
+}
+
 export function ZoomableImage({ src, alt, className }) {
   const [open, setOpen] = useState(false);
 
@@ -22,10 +31,12 @@ export function ZoomableImage({ src, alt, className }) {
     };
   }, [open]);
 
+  const resolvedSrc = withBasePath(src);
+
   return (
     <>
       <img
-        src={src}
+        src={resolvedSrc}
         alt={alt}
         className={`${className ?? ""} cursor-pointer`}
         onClick={() => setOpen(true)}
@@ -39,7 +50,7 @@ export function ZoomableImage({ src, alt, className }) {
           className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/85 p-6"
         >
           <img
-            src={src}
+            src={resolvedSrc}
             alt={alt}
             className="max-h-full max-w-full object-contain shadow-2xl"
             onClick={(e) => e.stopPropagation()}
@@ -261,7 +272,7 @@ export function PageHero({
           <div className="relative">
             <div className="absolute -left-4 top-4 hidden h-full w-full border border-sky-200 bg-sky-50 md:block" />
             <img
-              src={image}
+              src={withBasePath(image)}
               alt={imageAlt}
               className="relative aspect-[4/3] w-full rounded-lg border border-zinc-200 object-cover shadow-xl shadow-sky-100"
             />
@@ -282,7 +293,7 @@ function HeroPortrait({ image, imageAlt }) {
         <div className="absolute -inset-8 hidden rounded-full border border-sky-50 sm:block" />
         <div className="relative aspect-square rounded-full border border-sky-200 bg-white p-3 shadow-2xl shadow-sky-100">
           <img
-            src={image}
+            src={withBasePath(image)}
             alt={imageAlt}
             className="h-full w-full rounded-full object-cover object-center"
           />
@@ -393,7 +404,7 @@ export function ProjectCard({ project, index = 0 }) {
     >
       <Link href={`/portfolio/${project.slug}`} className="block no-underline">
         <img
-          src={project.coverImage}
+          src={withBasePath(project.coverImage)}
           alt={`${project.title} project visual`}
           className="aspect-[16/9] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
         />
